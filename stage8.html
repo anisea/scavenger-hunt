@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 08 // Final Vault</title>
+    <style>
+        :root { --bg: #0a0505; --panel: #1c0d0d; --text: #f5b7b1; --accent: #c0392b; --border: #78281f; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: monospace; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 600px; background: var(--panel); border: 1px solid var(--border); padding: 30px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        h1 { font-size: 1.2rem; color: var(--accent); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .visual-box { width: 100%; height: 180px; background: #080303; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .ciphertext { background: #000; border-left: 3px solid var(--accent); padding: 15px; font-size: 1.1rem; color: #fff; margin-bottom: 20px; word-break: break-all; user-select: text; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex: 1; background: #080303; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: monospace; font-size: 1rem; outline: none; }
+        input[type="text"]:focus { border-color: var(--accent); }
+        button { background: var(--accent); color: #fff; border: none; padding: 0 20px; font-weight: bold; font-family: monospace; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s; }
+        button:hover { opacity: 0.8; }
+        .hint-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 0.8rem; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .hint-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .hint-box { display: none; font-size: 0.85rem; color: #888; border-left: 2px solid #555; padding-left: 10px; margin-bottom: 15px; line-height: 1.4; }
+        .error { color: #e74c3c; font-size: 0.85rem; margin-top: 10px; display: none; }
+        .final-reveal { display: none; margin-top: 20px; background: #000; border: 2px solid var(--accent); padding: 25px; text-align: center; color: #fff; font-size: 1.2rem; letter-spacing: 1px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { border-color: #c0392b; } 50% { border-color: #fff; } 100% { border-color: #c0392b; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>// STAGE 08: THE FINAL LOCK</h1>
+        <div class="visual-box">
+            <svg width="140" height="140" viewBox="0 0 100 100">
+                <rect x="35" y="40" width="30" height="30" fill="none" stroke="#c0392b" stroke-width="2"/>
+                <circle cx="50" cy="55" r="3" fill="#c0392b"/>
+                <path d="M42 40 L42 30 A 8 8 0 0 1 58 30 L58 40" fill="none" stroke="#c0392b" stroke-width="2"/>
+            </svg>
+        </div>
+        <div class="ciphertext">Enter the secret master key phrase discovered from the previous checkpoint to unlock the transmission.</div>
+        <div class="input-group">
+            <input type="text" id="answer" placeholder="Enter master key..." autocomplete="off">
+            <button onclick="checkAnswer()">Authenticate</button>
+        </div>
+        <button class="hint-btn" onclick="toggleHint()">Toggle Hint</button>
+        <div class="hint-box" id="hintBox">
+            <strong>Hint 1:</strong> The final stage requires the exact secret keyword phrase established at the completion of Stage 7.<br><br>
+            <strong>Hint 2:</strong> Enter the decoded phrase from Stage 7: `THEN USE THE SHIFT` (or lowercase `then use the shift`).
+        </div>
+        <div class="error" id="errorMsg">Access denied. Invalid master key.</div>
+        <div class="final-reveal" id="finalReveal">
+            uk i like u and i want u to like me back so bad :(
+        </div>
+    </div>
+    <script>
+        function toggleHint() {
+            const hb = document.getElementById('hintBox');
+            hb.style.display = hb.style.display === 'block' ? 'none' : 'block';
+        }
+        function checkAnswer() {
+            const val = document.getElementById('answer').value.trim().toLowerCase();
+            if (val === "then use the shift" || val === "thenusetheshift") {
+                document.getElementById('errorMsg').style.display = 'none';
+                document.getElementById('answer').style.display = 'none';
+                document.querySelector('button[onclick="checkAnswer()"]').style.display = 'none';
+                document.querySelector('.hint-btn').style.display = 'none';
+                document.getElementById('hintBox').style.display = 'none';
+                document.getElementById('finalReveal').style.display = 'block';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

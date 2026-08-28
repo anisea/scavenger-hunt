@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 04 // Hex Matrix</title>
+    <style>
+        :root { --bg: #0c0805; --panel: #1c130d; --text: #f5cba7; --accent: #e67e22; --border: #7e5109; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: monospace; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 600px; background: var(--panel); border: 1px solid var(--border); padding: 30px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        h1 { font-size: 1.2rem; color: var(--accent); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .visual-box { width: 100%; height: 180px; background: #080503; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .ciphertext { background: #000; border-left: 3px solid var(--accent); padding: 15px; font-size: 1.1rem; color: #fff; margin-bottom: 20px; word-break: break-all; user-select: text; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex: 1; background: #080503; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: monospace; font-size: 1rem; outline: none; }
+        input[type="text"]:focus { border-color: var(--accent); }
+        button { background: var(--accent); color: #000; border: none; padding: 0 20px; font-weight: bold; font-family: monospace; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s; }
+        button:hover { opacity: 0.8; }
+        .hint-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 0.8rem; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .hint-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .hint-box { display: none; font-size: 0.85rem; color: #888; border-left: 2px solid #555; padding-left: 10px; margin-bottom: 15px; line-height: 1.4; }
+        .error { color: #e74c3c; font-size: 0.85rem; margin-top: 10px; display: none; }
+        .success { color: var(--accent); font-size: 0.9rem; margin-top: 10px; display: none; }
+        a.next-link { display: none; margin-top: 15px; background: var(--accent); color: #000; text-align: center; padding: 12px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>// STAGE 04: BASE SIXTEEN</h1>
+        <div class="visual-box">
+            <svg width="140" height="140" viewBox="0 0 100 100">
+                <text x="50" y="45" fill="#e67e22" font-size="16" text-anchor="middle" font-family="monospace">0x</text>
+                <text x="50" y="70" fill="#fff" font-size="18" text-anchor="middle" font-family="monospace">F</text>
+            </svg>
+        </div>
+        <div class="ciphertext">737461676535</div>
+        <div class="input-group">
+            <input type="text" id="answer" placeholder="Decode hex string..." autocomplete="off">
+            <button onclick="checkAnswer()">Parse</button>
+        </div>
+        <button class="hint-btn" onclick="toggleHint()">Toggle Hint</button>
+        <div class="hint-box" id="hintBox">
+            <strong>Hint 1:</strong> The visual clue indicates base 16 (Hexadecimal), running from 0 through 9 and A through F.<br><br>
+            <strong>Hint 2:</strong> Group the characters in pairs of two (e.g., 73, 74...) and convert each pair from hexadecimal to ASCII text.
+        </div>
+        <div class="error" id="errorMsg">Hexadecimal parsing error. Try again.</div>
+        <div class="success" id="successMsg">Hex parsed successfully. Proceed to Stage 5.</div>
+        <a href="stage5.html" class="next-link" id="nextLink">Proceed to Stage 5 &rarr;</a>
+    </div>
+    <script>
+        function toggleHint() {
+            const hb = document.getElementById('hintBox');
+            hb.style.display = hb.style.display === 'block' ? 'none' : 'block';
+        }
+        function checkAnswer() {
+            const val = document.getElementById('answer').value.trim().toLowerCase();
+            if (val === "stage5" || val === "stage 5") {
+                document.getElementById('successMsg').style.display = 'block';
+                document.getElementById('errorMsg').style.display = 'none';
+                document.getElementById('nextLink').style.display = 'block';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('successMsg').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 01 // Transmission</title>
+    <style>
+        :root { --bg: #0a0a0c; --panel: #121318; --text: #c5c8c6; --accent: #00ff66; --border: #2a2d3d; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: monospace; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 600px; background: var(--panel); border: 1px solid var(--border); padding: 30px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        h1 { font-size: 1.2rem; color: var(--accent); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .visual-box { width: 100%; height: 180px; background: #050507; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .ciphertext { background: #000; border-left: 3px solid var(--accent); padding: 15px; font-size: 1.1rem; color: #fff; margin-bottom: 20px; word-break: break-all; user-select: text; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex: 1; background: #050507; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: monospace; font-size: 1rem; outline: none; }
+        input[type="text"]:focus { border-color: var(--accent); }
+        button { background: var(--accent); color: #000; border: none; padding: 0 20px; font-weight: bold; font-family: monospace; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s; }
+        button:hover { opacity: 0.8; }
+        .hint-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 0.8rem; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .hint-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .hint-box { display: none; font-size: 0.85rem; color: #888; border-left: 2px solid #555; padding-left: 10px; margin-bottom: 15px; line-height: 1.4; }
+        .error { color: #ff3333; font-size: 0.85rem; margin-top: 10px; display: none; }
+        .success { color: var(--accent); font-size: 0.9rem; margin-top: 10px; display: none; }
+        a.next-link { display: none; margin-top: 15px; background: var(--accent); color: #000; text-align: center; padding: 12px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>// STAGE 01: THE ROTATION</h1>
+        <div class="visual-box">
+            <svg width="140" height="140" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#2a2d3d" stroke-width="4"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#00ff66" stroke-width="2" stroke-dasharray="5 3"/>
+                <text x="50" y="32" fill="#fff" font-size="10" text-anchor="middle" font-family="monospace">A</text>
+                <text x="50" y="75" fill="#00ff66" font-size="10" text-anchor="middle" font-family="monospace">D</text>
+                <line x1="50" y1="50" x2="50" y2="20" stroke="#fff" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="65" y2="65" stroke="#00ff66" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <div class="ciphertext">FRUAQ KDW WKH QH[W SURJUDP LV VWDJSVGRWPKW</div>
+        <div class="input-group">
+            <input type="text" id="answer" placeholder="Enter decrypted message..." autocomplete="off">
+            <button onclick="checkAnswer()">Decrypt</button>
+        </div>
+        <button class="hint-btn" onclick="toggleHint()">Toggle Hint</button>
+        <div class="hint-box" id="hintBox">
+            <strong>Hint 1:</strong> Notice how the outer marker 'A' aligns with the inner marker 'D'. Count the alphabetical distance between them.<br><br>
+            <strong>Hint 2:</strong> Shift every letter back by 3 positions in the alphabet (A becomes X, B becomes Y, C becomes Z, D becomes A).
+        </div>
+        <div class="error" id="errorMsg">Incorrect sequence. Check your calculation.</div>
+        <div class="success" id="successMsg">Decryption successful. Proceed to Stage 2.</div>
+        <a href="stage2.html" class="next-link" id="nextLink">Proceed to Stage 2 &rarr;</a>
+    </div>
+    <script>
+        function toggleHint() {
+            const hb = document.getElementById('hintBox');
+            hb.style.display = hb.style.display === 'block' ? 'none' : 'block';
+        }
+        function checkAnswer() {
+            const val = document.getElementById('answer').value.trim().toLowerCase();
+            if (val === "correct that the next program is stage2html" || val === "correct that the next program is stage2.html") {
+                document.getElementById('successMsg').style.display = 'block';
+                document.getElementById('errorMsg').style.display = 'none';
+                document.getElementById('nextLink').style.display = 'block';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('successMsg').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
